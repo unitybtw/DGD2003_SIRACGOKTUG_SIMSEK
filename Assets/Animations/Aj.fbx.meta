@@ -1,29 +1,9 @@
 fileFormatVersion: 2
-guid: 292c2847850094c6a8db0e8b21a4358c
+guid: f63ba1b2a7421423baf88238c58ed533
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Boy01_FacialAnimMap
-    second: {fileID: 2800000, guid: 00845263a0d5845ad98d11fdeb73cfa1, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Boy01_diffuse
-    second: {fileID: 2800000, guid: 99dd37d9627d749c3b816d8d9df1f6e1, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Boy01_normal
-    second: {fileID: 2800000, guid: a06f556935a6748e2807659d7284b25b, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Boy01_spec
-    second: {fileID: 2800000, guid: a18e1f6fcef6e49cfa32855ea184a925, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -120,7 +100,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 2
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

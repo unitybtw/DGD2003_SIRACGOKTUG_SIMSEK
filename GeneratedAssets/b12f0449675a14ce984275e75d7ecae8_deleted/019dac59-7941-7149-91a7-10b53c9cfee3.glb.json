@@ -1,0 +1,11 @@
+{
+    "asset": "b12f0449675a14ce984275e75d7ecae8",
+    "fileName": "019dac59-7941-7149-91a7-10b53c9cfee3.glb",
+    "prompt": "low poly school desk ",
+    "negativePrompt": "",
+    "model": "f923f4af-999c-47c7-b9bf-b8952ffe003e",
+    "modelName": "Rodin Hyper 3D",
+    "customSeed": -1,
+    "w3CTraceId": "37764ad8f71f72631a65e2332f8c5992",
+    "refinementMode": "Generation"
+}

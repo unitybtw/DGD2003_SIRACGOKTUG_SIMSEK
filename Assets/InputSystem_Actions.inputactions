@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -986,6 +987,74 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "CameraControl",
+            "id": "1546a7f3-0f29-40d7-934a-4db44bbe540f",
+            "actions": [
+                {
+                    "name": "GhostCam",
+                    "type": "Button",
+                    "id": "c76c6e70-cc19-49ea-93b2-27ac2b5ca5df",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CCTV_Cam",
+                    "type": "Button",
+                    "id": "ca2be463-51ae-4971-adea-775ab0644b07",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Student_Cam",
+                    "type": "Button",
+                    "id": "a440050a-c352-44b5-a8db-7a6156556e06",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ed6e1180-0853-4f99-8df4-0d286b2448c7",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GhostCam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aa799eee-5fc1-4488-92b1-223ab016e9b8",
+                    "path": "<Keyboard>/8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CCTV_Cam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "74f6e759-58a0-4bb2-bb45-6d338d66e83b",
+                    "path": "<Keyboard>/9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Student_Cam",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,0 +1,12 @@
+{
+    "asset": "ed150f8344b3040ceb54eb246fa1b359",
+    "fileName": "019dacf0-d129-7193-9575-11394d30c450.glb",
+    "prompt": "LOW POLY painting",
+    "negativePrompt": "",
+    "model": "f923f4af-999c-47c7-b9bf-b8952ffe003e",
+    "modelName": "Rodin Hyper 3D",
+    "customSeed": -1,
+    "w3CTraceId": "51ea9cea46f63031638091d124f90b5f",
+    "feedback": 0,
+    "refinementMode": "Generation"
+}

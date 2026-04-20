@@ -1,29 +1,35 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FreshmanAnimationManager : MonoBehaviour
 {
     private Animator animator;
 
-    // Duygu durumlarını matematiksel olarak ifade edelim:
+    // Duygu durumlar??n?? matematiksel olarak ifade edelim:
     // 0 = Idle, 1 = Sad, 2 = Happy, 3 = Dancing
 
-    void Start()
+    private void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
-        // MacBook klavyendeki 0, 1, 2 ve 3 tuşlarıyla test edebilirsin
-        if (Input.GetKeyDown(KeyCode.Alpha0)) SetEmotion(0f);
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SetEmotion(1f);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SetEmotion(2f);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SetEmotion(3f);
+        if (Keyboard.current == null)
+        {
+            return;
+        }
+
+        // MacBook klavyendeki 0, 1, 2 ve 3 tu??lar??yla test edebilirsin
+        if (Keyboard.current.digit0Key.wasPressedThisFrame) SetEmotion(0f);
+        if (Keyboard.current.digit1Key.wasPressedThisFrame) SetEmotion(1f);
+        if (Keyboard.current.digit2Key.wasPressedThisFrame) SetEmotion(2f);
+        if (Keyboard.current.digit3Key.wasPressedThisFrame) SetEmotion(3f);
     }
 
     public void SetEmotion(float value)
     {
-        // Blend Tree parametresini günceller
+        // Blend Tree parametresini g??nceller
         if (animator != null)
         {
             animator.SetFloat("Emotion", value);

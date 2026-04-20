@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Unity.Cinemachine;
 
 public class CameraManager : MonoBehaviour
 {
-    [Header("Cinemachine Cameras")]
-    [SerializeField] private CinemachineCamera ghostCam;
-    [SerializeField] private CinemachineCamera cctvCam;
-    [SerializeField] private CinemachineCamera studentCam;
+    [Header("Camera Objects")]
+    [SerializeField] private GameObject ghostCam;
+    [SerializeField] private GameObject cctvCam;
+    [SerializeField] private GameObject studentCam;
 
     [Header("Input Action Asset")]
     [SerializeField] private InputActionAsset inputActions;
@@ -18,16 +17,20 @@ public class CameraManager : MonoBehaviour
 
     private void Awake()
     {
-        if (inputActions != null)
+        if (inputActions == null)
         {
-            var map = inputActions.FindActionMap("CameraControl");
-            if (map != null)
-            {
-                ghostAction = map.FindAction("GhostCam");
-                cctvAction = map.FindAction("CCTV_Cam");
-                studentAction = map.FindAction("Student_Cam");
-            }
+            return;
         }
+
+        InputActionMap map = inputActions.FindActionMap("CameraControl");
+        if (map == null)
+        {
+            return;
+        }
+
+        ghostAction = map.FindAction("GhostCam");
+        cctvAction = map.FindAction("CCTV_Cam");
+        studentAction = map.FindAction("Student_Cam");
     }
 
     private void OnEnable()
@@ -56,18 +59,18 @@ public class CameraManager : MonoBehaviour
     private void OnCCTVPressed(InputAction.CallbackContext context) => SwitchCamera(cctvCam);
     private void OnStudentPressed(InputAction.CallbackContext context) => SwitchCamera(studentCam);
 
-    private void SwitchCamera(CinemachineCamera targetCam)
+    private void SwitchCamera(GameObject targetCam)
     {
-        if (targetCam == null) return;
+        if (targetCam == null)
+        {
+            return;
+        }
 
-        // Reset all to low priority
-        if (ghostCam != null) ghostCam.Priority = 0;
-        if (cctvCam != null) cctvCam.Priority = 0;
-        if (studentCam != null) studentCam.Priority = 0;
+        if (ghostCam != null) ghostCam.SetActive(false);
+        if (cctvCam != null) cctvCam.SetActive(false);
+        if (studentCam != null) studentCam.SetActive(false);
 
-        // Set target to high priority
-        targetCam.Priority = 10;
-        
+        targetCam.SetActive(true);
         Debug.Log($"Switched to: {targetCam.name}");
     }
 }

@@ -1,0 +1,12 @@
+{
+    "asset": "5e8286cdd1ec54b049d72373e12b3739",
+    "fileName": "019daf80-2425-7c22-8e43-0d07e032c8c5.glb",
+    "prompt": "low poly chair",
+    "negativePrompt": "",
+    "model": "f923f4af-999c-47c7-b9bf-b8952ffe003e",
+    "modelName": "Rodin Hyper 3D",
+    "customSeed": -1,
+    "w3CTraceId": "5fa92fd9f47ffd01787f7d9d42c9e5bb",
+    "feedback": 0,
+    "refinementMode": "Generation"
+}

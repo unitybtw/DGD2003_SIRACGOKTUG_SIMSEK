@@ -1,76 +1,35 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using Unity.Cinemachine; 
 
 public class CameraManager : MonoBehaviour
 {
-    [Header("Camera Objects")]
-    [SerializeField] private GameObject ghostCam;
-    [SerializeField] private GameObject cctvCam;
-    [SerializeField] private GameObject studentCam;
+    [Header("Kameraları Buraya Sürükle")]
+    public CinemachineCamera ghostCam;
+    public CinemachineCamera cctvCam;
+    public CinemachineCamera studentCam;
 
-    [Header("Input Action Asset")]
-    [SerializeField] private InputActionAsset inputActions;
-
-    private InputAction ghostAction;
-    private InputAction cctvAction;
-    private InputAction studentAction;
-
-    private void Awake()
+    void Start()
     {
-        if (inputActions == null)
-        {
-            return;
-        }
-
-        InputActionMap map = inputActions.FindActionMap("CameraControl");
-        if (map == null)
-        {
-            return;
-        }
-
-        ghostAction = map.FindAction("GhostCam");
-        cctvAction = map.FindAction("CCTV_Cam");
-        studentAction = map.FindAction("Student_Cam");
+        // Oyun başladığında otomatik olarak Ghost kamerasına geç
+        SwitchCamera(ghostCam);
     }
 
-    private void OnEnable()
+    void Update()
     {
-        if (ghostAction != null) ghostAction.performed += OnGhostPressed;
-        if (cctvAction != null) cctvAction.performed += OnCCTVPressed;
-        if (studentAction != null) studentAction.performed += OnStudentPressed;
-
-        ghostAction?.Enable();
-        cctvAction?.Enable();
-        studentAction?.Enable();
+        // 7, 8 ve 9 tuşlarıyla geçiş yap
+        if (Input.GetKeyDown(KeyCode.Alpha7)) SwitchCamera(ghostCam);
+        if (Input.GetKeyDown(KeyCode.Alpha8)) SwitchCamera(cctvCam);
+        if (Input.GetKeyDown(KeyCode.Alpha9)) SwitchCamera(studentCam);
     }
 
-    private void OnDisable()
+    private void SwitchCamera(CinemachineCamera targetCam)
     {
-        if (ghostAction != null) ghostAction.performed -= OnGhostPressed;
-        if (cctvAction != null) cctvAction.performed -= OnCCTVPressed;
-        if (studentAction != null) studentAction.performed -= OnStudentPressed;
+        // Önce hepsini kapat
+        ghostCam.Priority = 0;
+        cctvCam.Priority = 0;
+        studentCam.Priority = 0;
 
-        ghostAction?.Disable();
-        cctvAction?.Disable();
-        studentAction?.Disable();
-    }
-
-    private void OnGhostPressed(InputAction.CallbackContext context) => SwitchCamera(ghostCam);
-    private void OnCCTVPressed(InputAction.CallbackContext context) => SwitchCamera(cctvCam);
-    private void OnStudentPressed(InputAction.CallbackContext context) => SwitchCamera(studentCam);
-
-    private void SwitchCamera(GameObject targetCam)
-    {
-        if (targetCam == null)
-        {
-            return;
-        }
-
-        if (ghostCam != null) ghostCam.SetActive(false);
-        if (cctvCam != null) cctvCam.SetActive(false);
-        if (studentCam != null) studentCam.SetActive(false);
-
-        targetCam.SetActive(true);
-        Debug.Log($"Switched to: {targetCam.name}");
+        // Sadece hedefleneni aç
+        targetCam.Priority = 10;
     }
 }

@@ -1,0 +1,12 @@
+{
+    "asset": "2c7428920c8f74c74b8a30ad73aa8c85",
+    "fileName": "019daf99-5f52-7296-acb4-9ffb0432bdb8_Preview.jpg",
+    "prompt": "\"Seamless stylized concrete floor for an eerie university hallway, low poly art style, dark gray tones with subtle cool blue shadows, flat colors, tileable.\"",
+    "negativePrompt": "",
+    "model": "1a149e0e-3482-46a2-be9b-de997b8829fb",
+    "modelName": "Realistic Textures 3.0",
+    "customSeed": 19773677,
+    "w3CTraceId": "3aa20cdfa91d9998273ba91ca137175e",
+    "feedback": 0,
+    "refinementMode": "Generation"
+}

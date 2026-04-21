@@ -1,0 +1,12 @@
+{
+    "asset": "29cb99393acce4f33aee9d31b18f2f03",
+    "fileName": "019daf89-5429-7858-81fb-5b2fb22dfc8b.glb",
+    "prompt": "low poly",
+    "negativePrompt": "",
+    "model": "f923f4af-999c-47c7-b9bf-b8952ffe003e",
+    "modelName": "Rodin Hyper 3D",
+    "customSeed": -1,
+    "w3CTraceId": "da223275b8bb7b53fa4840b1994e3c6a",
+    "feedback": 0,
+    "refinementMode": "Generation"
+}

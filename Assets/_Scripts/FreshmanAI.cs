@@ -10,60 +10,39 @@ public class FreshmanAI : MonoBehaviour
     {
         Patrol,
         Investigate,
-        Flee
+        Flee,
+        PulledToZone // YENİ: Yeşil bölgenin çekim gücüne kapılma durumu
     }
 
     [Header("Patrol")]
-    [Tooltip("Öğrencinin sırayla dolaşacağı waypoint'ler. Boş bırakılırsa çocuk objelerden otomatik bulunur.")]
     public Transform[] waypoints;
 
     [Header("Movement")]
-    [Tooltip("Normal yürüyüş hızı.")]
     public float walkSpeed = 3.5f;
-
-    [Tooltip("Panik durumunda koşu hızı.")]
     public float runSpeed = 7.5f;
-
-    [Tooltip("Araştırma sırasında yürüme hızı.")]
     public float investigateSpeed = 2.5f;
 
     [Header("NavMesh Recovery")]
-    [Tooltip("NPC NavMesh dışında doğarsa en yakın geçerli noktaya taşımayı dener.")]
     public bool snapToNavMeshOnStart = true;
-
-    [Tooltip("NavMesh üzerinde geçerli nokta arama yarıçapı.")]
     public float navMeshSnapRadius = 10f;
 
     [Header("Investigation")]
-    [Tooltip("Merak uyandıran bir sesi inceledikten sonra bekleme süresi (saniye).")]
     public float investigationWaitTime = 3f;
-
-    [Tooltip("Olayı araştırırken durulacak mesafe.")]
     public float investigateStoppingDistance = 0.8f;
 
     [Header("Flee")]
-    [Tooltip("Korkutucu bir olaydan kaçarken oluşturulacak güvenli mesafe.")]
     public float fleeDistance = 18f;
-
-    [Tooltip("Kaçış hedefine ulaştıktan sonra Patrolling'e dönmeden önce kullanılacak ekstra güvenlik süresi.")]
     public float fleeCooldownTime = 0.25f;
 
     [Header("Animation")]
-    [Tooltip("Animator üzerindeki hız parametresinin adı.")]
     public string speedParameterName = "Speed";
-
-    [Tooltip("Animator üzerindeki isteğe bağlı state parametresinin adı. Boş bırakılabilir.")]
     public string stateParameterName = string.Empty;
 
     [Header("Visual Fix")]
-    [Tooltip("Modelin yerin içine gömülmesini azaltmak için görünür kısmı yukarı ofsetler.")]
     public float visualYOffset = 0.9f;
 
     [Header("Debug")]
-    [Tooltip("Inspector'da mevcut AI durumunu görmenizi sağlar.")]
     [SerializeField] private AIState currentState = AIState.Patrol;
-
-    [Tooltip("Patrol waypoint indeksini gösterir.")]
     [SerializeField] private int currentWaypointIndex = 0;
 
     private NavMeshAgent agent;
@@ -88,7 +67,6 @@ public class FreshmanAI : MonoBehaviour
 
         if (animator != null)
         {
-            // NavMesh ile çalışırken animasyonun karakteri kaydırmaması için
             animator.applyRootMotion = false;
             animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
             animator.updateMode = AnimatorUpdateMode.Normal;
@@ -106,12 +84,7 @@ public class FreshmanAI : MonoBehaviour
     private void Start()
     {
         CacheWaypointsIfNeeded();
-
-        if (snapToNavMeshOnStart)
-        {
-            TrySnapAgentToNavMesh();
-        }
-
+        if (snapToNavMeshOnStart) TrySnapAgentToNavMesh();
         EnterPatrolState(true);
     }
 
@@ -121,11 +94,7 @@ public class FreshmanAI : MonoBehaviour
 
         if (!agent.isOnNavMesh)
         {
-            if (snapToNavMeshOnStart && !navMeshRecoveryAttempted)
-            {
-                TrySnapAgentToNavMesh();
-            }
-
+            if (snapToNavMeshOnStart && !navMeshRecoveryAttempted) TrySnapAgentToNavMesh();
             UpdateAnimator();
             return;
         }
@@ -144,41 +113,39 @@ public class FreshmanAI : MonoBehaviour
             case AIState.Flee:
                 UpdateFlee();
                 break;
+            case AIState.PulledToZone:
+                // YENİ: Hipnoz altındayken yapay zeka başka bir şey düşünmez, hedefe koşar!
+                break; 
         }
 
-        // Her karede anlık hızı Animator'a gönderiyoruz
         UpdateAnimator();
     }
 
-    /// <summary>
-    /// Başka sistemler tarafından çağrılan olay reaksiyon noktası. (Örn: Obje fırlatma)
-    /// </summary>
     public void ReactToEvent(Vector3 eventPosition, bool isAggressive)
     {
-        if (agent == null || !agent.isOnNavMesh) return;
+        if (agent == null || !agent.isOnNavMesh || currentState == AIState.PulledToZone) return;
 
-        if (isAggressive)
-        {
-            EnterFleeState(eventPosition);
-        }
-        else
-        {
-            EnterInvestigateState(eventPosition);
-        }
+        if (isAggressive) EnterFleeState(eventPosition);
+        else EnterInvestigateState(eventPosition);
+    }
+
+    // YENİ: Yeşil bölgenin AI'yi zorla kendine çekmesini sağlayan komut
+    public void ForcePullToZone(Vector3 zonePosition)
+    {
+        if (currentState == AIState.PulledToZone) return; // Zaten çekiliyorsa tekrar komut verme
+        
+        currentState = AIState.PulledToZone;
+        SetAgentStoppedSafe(false);
+        agent.speed = runSpeed; // Hızlıca koşarak hedefe gitsin
+        agent.stoppingDistance = 0f; // Tam içine kadar girmesi için mesafeyi sıfırlıyoruz
+        agent.SetDestination(zonePosition);
     }
 
     private void ApplyVisualOffsetOnce()
     {
         if (visualOffsetApplied || Mathf.Approximately(visualYOffset, 0f)) return;
 
-        string[] visibleChildNames =
-        {
-            "Boy01_Body_Geo",
-            "Boy01_Brows_Geo",
-            "Boy01_Eyes_Geo",
-            "h_Geo"
-        };
-
+        string[] visibleChildNames = { "Boy01_Body_Geo", "Boy01_Brows_Geo", "Boy01_Eyes_Geo", "h_Geo" };
         for (int i = 0; i < visibleChildNames.Length; i++)
         {
             Transform child = transform.Find(visibleChildNames[i]);
@@ -189,7 +156,6 @@ public class FreshmanAI : MonoBehaviour
                 child.localPosition = localPos;
             }
         }
-
         visualOffsetApplied = true;
     }
 
@@ -201,12 +167,7 @@ public class FreshmanAI : MonoBehaviour
             return;
         }
 
-        Transform root = transform.Find("Freshman_TestRoute");
-        if (root == null)
-        {
-            root = transform.Find("Freshman_Waypoints");
-        }
-
+        Transform root = transform.Find("Freshman_TestRoute") ?? transform.Find("Freshman_Waypoints");
         if (root == null)
         {
             cachedWaypoints = waypoints;
@@ -217,10 +178,7 @@ public class FreshmanAI : MonoBehaviour
         for (int i = 0; i < root.childCount; i++)
         {
             Transform child = root.GetChild(i);
-            if (child != null)
-            {
-                collected.Add(child);
-            }
+            if (child != null) collected.Add(child);
         }
 
         collected.Sort((a, b) => string.CompareOrdinal(a.name, b.name));
@@ -229,11 +187,7 @@ public class FreshmanAI : MonoBehaviour
 
     private Transform[] GetWaypoints()
     {
-        if (cachedWaypoints != null && cachedWaypoints.Length > 0)
-        {
-            return cachedWaypoints;
-        }
-
+        if (cachedWaypoints != null && cachedWaypoints.Length > 0) return cachedWaypoints;
         CacheWaypointsIfNeeded();
         return cachedWaypoints;
     }
@@ -271,11 +225,7 @@ public class FreshmanAI : MonoBehaviour
         {
             SetAgentStoppedSafe(true);
             investigateTimer -= Time.deltaTime;
-
-            if (investigateTimer <= 0f)
-            {
-                EnterPatrolState(false);
-            }
+            if (investigateTimer <= 0f) EnterPatrolState(false);
         }
     }
 
@@ -286,10 +236,7 @@ public class FreshmanAI : MonoBehaviour
         if (HasReachedDestination(agent.stoppingDistance + 0.1f))
         {
             fleeTimer -= Time.deltaTime;
-            if (fleeTimer <= 0f)
-            {
-                EnterPatrolState(false);
-            }
+            if (fleeTimer <= 0f) EnterPatrolState(false);
         }
     }
 
@@ -340,10 +287,7 @@ public class FreshmanAI : MonoBehaviour
             agent.stoppingDistance = 0.1f;
         }
 
-        if (activeWaypoints != null && activeWaypoints.Length > 0)
-        {
-            GoToCurrentWaypoint(activeWaypoints);
-        }
+        if (activeWaypoints != null && activeWaypoints.Length > 0) GoToCurrentWaypoint(activeWaypoints);
     }
 
     private void EnterInvestigateState(Vector3 eventPosition)
@@ -408,7 +352,7 @@ public class FreshmanAI : MonoBehaviour
         else if (!navMeshUnavailableLogged)
         {
             navMeshUnavailableLogged = true;
-            Debug.LogWarning($"{name}: NavMesh üzerinde geçerli nokta bulunamadı. NavMesh bake edildiğinden ve NPC'nin yürüme alanında olduğundan emin olun.");
+            Debug.LogWarning($"{name}: NavMesh üzerinde geçerli nokta bulunamadı.");
         }
     }
 
@@ -432,15 +376,8 @@ public class FreshmanAI : MonoBehaviour
     private void UpdateAnimator()
     {
         if (animator == null) return;
-
-        // Karakternin NavMesh üzerindeki anlık hızını alıp doğrudan Animator'a veriyoruz
         float speed = agent != null ? agent.velocity.magnitude : 0f;
         animator.SetFloat(SpeedHash, speed);
-
-        // İsteğe bağlı olarak mevcut State'i de (Patrol, Flee vs.) Animator'a gönderebiliriz
-        if (!string.IsNullOrWhiteSpace(stateParameterName))
-        {
-            animator.SetInteger(stateParameterName, (int)currentState);
-        }
+        if (!string.IsNullOrWhiteSpace(stateParameterName)) animator.SetInteger(stateParameterName, (int)currentState);
     }
 }

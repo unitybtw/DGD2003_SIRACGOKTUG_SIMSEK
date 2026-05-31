@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.AI; // NavMeshAgent (Yapay Zeka) kontrolü için eklendi
+using UnityEngine.AddressableAssets; // Addressables kütüphanesini ekledik!
 
 public class ScoreZone : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class ScoreZone : MonoBehaviour
     public TextMeshProUGUI skorYazisiObjesi;
 
     [Header("Çekim Gücü (Mıknatıs Alanı)")]
-    public float cekimAlaniYaricapi = 10f; // Öğrenci bu mesafeye girince hedefe kilitlenir
+    public float cekimAlaniYaricapi = 10f; 
 
     void Start()
     {
@@ -19,24 +19,18 @@ public class ScoreZone : MonoBehaviour
 
     void Update()
     {
-        // Sahnede "Student" etiketli tüm öğrencileri bul
         GameObject[] ogrenciler = GameObject.FindGameObjectsWithTag("Student");
 
         foreach (GameObject ogrenci in ogrenciler)
         {
-            // Öğrenci ile bu yeşil bölge arasındaki mesafeyi ölç
             float mesafe = Vector3.Distance(transform.position, ogrenci.transform.position);
 
-            // Eğer öğrenci çekim alanına girdiyse (yeterince yaklaştıysa)
             if (mesafe <= cekimAlaniYaricapi)
             {
-                // Öğrencinin yürüyüş motorunu (NavMeshAgent) bul
-                NavMeshAgent ajan = ogrenci.GetComponentInParent<NavMeshAgent>();
-                
-                if (ajan != null)
+                FreshmanAI ai = ogrenci.GetComponentInParent<FreshmanAI>();
+                if (ai != null)
                 {
-                    // Kendi devriyesini boşverip doğrudan yeşil alanın merkezine yürümesini emret
-                    ajan.SetDestination(transform.position);
+                    ai.ForcePullToZone(transform.position);
                 }
             }
         }
@@ -44,14 +38,18 @@ public class ScoreZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Eğer yeşil bölgeye temas eden objenin etiketi "Student" ise
-        if (other.CompareTag("Student"))
+        // Çarpan objenin kendisinde veya üst nesnelerinde FreshmanAI kodu var mı?
+        FreshmanAI ai = other.GetComponentInParent<FreshmanAI>();
+
+        // Eğer kod bulunduysa, bu kesinlikle bizim öğrencimizdir!
+        if (ai != null)
         {
             toplamPuan += ogrenciBasinaPuan;
             SkorTablosunuGuncelle();
 
-            // DİKKAT: Sadece çarpan parçayı değil, hiyerarşideki en üst Ana Objeyi (Root) tamamen sil
-            Destroy(other.transform.root.gameObject);
+            // ADDRESSABLES OPTİMİZASYONU: 
+            // Normal Destroy yerine Addressables kullanarak objeyi hafızadan (RAM) tamamen temizliyoruz.
+            Addressables.ReleaseInstance(ai.gameObject);
         }
     }
 
@@ -59,7 +57,8 @@ public class ScoreZone : MonoBehaviour
     {
         if (skorYazisiObjesi != null)
         {
-            skorYazisiObjesi.text = "Kurtarılan Öğrenciler: " + toplamPuan;
+            // SADECE SAYIYI YAZDIRAN KUSURSUZ KOD BURASI
+            skorYazisiObjesi.text = toplamPuan.ToString();
         }
     }
 }

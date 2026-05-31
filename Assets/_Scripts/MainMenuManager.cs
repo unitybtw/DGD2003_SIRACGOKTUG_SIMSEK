@@ -1,16 +1,20 @@
 using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement; // Sahne geçişleri için şart!
-using UnityEngine.UI; // Butonları kontrol etmek için şart!
+using UnityEngine.UI;
+// Dikkat: SceneManagement yerine Addressables kütüphanelerini ekledik
+using UnityEngine.AddressableAssets; 
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Menü Butonları")]
     public Button continueButton; // Kayıttan devam etme butonu
 
-    [Header("Yüklenecek Oyun Sahnesi")]
-    [Tooltip("Giriş yapacağınız ana oyun sahnesinin tam adı.")]
-    public string gameSceneName = "GameplayScene"; 
+    [Header("Yüklenecek Oyun Sahnesi (Addressables)")]
+    [Tooltip("Giriş yapacağınız ana oyun sahnesinin Addressable referansı.")]
+    public AssetReference gameSceneReference; // string yerine AssetReference kullanıyoruz!
 
     private string saveFilePath;
 
@@ -42,16 +46,42 @@ public class MainMenuManager : MonoBehaviour
             File.Delete(saveFilePath);
         }
 
-        Debug.Log("Yeni Oyun Başlatılıyor...");
-        SceneManager.LoadScene(gameSceneName);
+        Debug.Log("Yeni Oyun Başlatılıyor (Addressables)...");
+        LoadGameScene();
     }
 
     // 2. KAYITTAN DEVAM ET BUTONU FONKSİYONU
     public void ContinueGame()
     {
-        Debug.Log("Kayıtlı Oyundan Devam Ediliyor...");
-        // Oyun sahnesini yükler, sahne içindeki GameSaveManager uyanınca otomatik olarak JSON'ı okur
-        SceneManager.LoadScene(gameSceneName);
+        Debug.Log("Kayıtlı Oyundan Devam Ediliyor (Addressables)...");
+        LoadGameScene();
+    }
+
+    // Sahneleri asenkron yüklemek için ortak fonksiyon
+    private void LoadGameScene()
+    {
+        if (gameSceneReference != null)
+        {
+            // Sahneyi arka planda yükler. Single modu eski sahneyi kapatıp bunu açar.
+            Addressables.LoadSceneAsync(gameSceneReference, LoadSceneMode.Single).Completed += OnSceneLoaded;
+        }
+        else
+        {
+            Debug.LogError("Oyun sahnesi referansı (gameSceneReference) script üzerinde boş bırakılmış!");
+        }
+    }
+
+    // Sahne yüklemesi bittiğinde tetiklenecek olan fonksiyon (İsteğe bağlı kontrol için)
+    private void OnSceneLoaded(AsyncOperationHandle<SceneInstance> handle)
+    {
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            Debug.Log("Oyun sahnesi başarıyla yüklendi.");
+        }
+        else
+        {
+            Debug.LogError("Sahne yüklenirken hata oluştu: " + handle.OperationException);
+        }
     }
 
     // 3. OYUNDAN ÇIKIŞ BUTONU FONKSİYONU

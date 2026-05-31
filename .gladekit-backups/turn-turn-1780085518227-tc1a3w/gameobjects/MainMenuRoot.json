@@ -1,0 +1,49 @@
+{
+    "name": "MainMenuRoot",
+    "path": "MainMenuRoot",
+    "active": true,
+    "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+    },
+    "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+    },
+    "parentPath": "",
+    "layer": 0,
+    "tag": "Untagged",
+    "components": [
+        {
+            "type": "UnityEngine.Transform",
+            "propertiesJson": ""
+        },
+        {
+            "type": "MainMenuController",
+            "propertiesJson": "{\"startSceneName\":\"main\",\"assignmentSceneName\":\"assigment\",\"creditsSceneName\":\"\",\"menuRoot\":{\"instanceID\":107092},\"loadDelaySeconds\":0.0,\"canvasGroup\":{\"instanceID\":0},\"fadeDuration\":0.3499999940395355,\"playButton\":{\"instanceID\":0},\"demoButton\":{\"instanceID\":0},\"assignmentButton\":{\"instanceID\":0},\"quitButton\":{\"instanceID\":0}}"
+        }
+    ],
+    "prefabPath": "Assets/Temp/GladeKitBackups/turn-turn-1780085518227-tc1a3w/MainMenuRoot.prefab"
+}

@@ -1,0 +1,53 @@
+{
+    "name": "MenuPanel",
+    "path": "MainMenuCanvas/MenuPanel",
+    "active": true,
+    "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+    },
+    "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+    },
+    "parentPath": "MainMenuCanvas",
+    "layer": 0,
+    "tag": "Untagged",
+    "components": [
+        {
+            "type": "UnityEngine.RectTransform",
+            "propertiesJson": ""
+        },
+        {
+            "type": "UnityEngine.CanvasRenderer",
+            "propertiesJson": ""
+        },
+        {
+            "type": "UnityEngine.UI.Image",
+            "propertiesJson": "{\"m_Material\":{\"instanceID\":0},\"m_Color\":{\"r\":0.07999999821186066,\"g\":0.07999999821186066,\"b\":0.07999999821186066,\"a\":0.7799999713897705},\"m_RaycastTarget\":true,\"m_RaycastPadding\":{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":0.0},\"m_Maskable\":true,\"m_OnCullStateChanged\":{\"m_PersistentCalls\":{\"m_Calls\":[]}},\"m_Sprite\":{\"instanceID\":0},\"m_Type\":0,\"m_PreserveAspect\":false,\"m_FillCenter\":true,\"m_FillMethod\":4,\"m_FillAmount\":1.0,\"m_FillClockwise\":true,\"m_FillOrigin\":0,\"m_UseSpriteMesh\":false,\"m_PixelsPerUnitMultiplier\":1.0}"
+        }
+    ],
+    "prefabPath": "Assets/Temp/GladeKitBackups/turn-turn-1780085518227-tc1a3w/MainMenuCanvas_MenuPanel.prefab"
+}

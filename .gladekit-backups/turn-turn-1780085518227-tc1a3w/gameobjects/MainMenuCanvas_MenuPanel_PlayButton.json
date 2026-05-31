@@ -1,0 +1,57 @@
+{
+    "name": "PlayButton",
+    "path": "MainMenuCanvas/MenuPanel/PlayButton",
+    "active": true,
+    "position": {
+        "x": 0.0,
+        "y": 120.0,
+        "z": 0.0
+    },
+    "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+    },
+    "localPosition": {
+        "x": 0.0,
+        "y": 120.0,
+        "z": 0.0
+    },
+    "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+    },
+    "parentPath": "MainMenuCanvas/MenuPanel",
+    "layer": 0,
+    "tag": "Untagged",
+    "components": [
+        {
+            "type": "UnityEngine.RectTransform",
+            "propertiesJson": ""
+        },
+        {
+            "type": "UnityEngine.CanvasRenderer",
+            "propertiesJson": ""
+        },
+        {
+            "type": "UnityEngine.UI.Image",
+            "propertiesJson": "{\"m_Material\":{\"instanceID\":0},\"m_Color\":{\"r\":0.17000000178813935,\"g\":0.20000000298023225,\"b\":0.2800000011920929,\"a\":1.0},\"m_RaycastTarget\":true,\"m_RaycastPadding\":{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":0.0},\"m_Maskable\":true,\"m_OnCullStateChanged\":{\"m_PersistentCalls\":{\"m_Calls\":[]}},\"m_Sprite\":{\"instanceID\":0},\"m_Type\":0,\"m_PreserveAspect\":false,\"m_FillCenter\":true,\"m_FillMethod\":0,\"m_FillAmount\":0.0,\"m_FillClockwise\":true,\"m_FillOrigin\":0,\"m_UseSpriteMesh\":false,\"m_PixelsPerUnitMultiplier\":1.0}"
+        },
+        {
+            "type": "UnityEngine.UI.Button",
+            "propertiesJson": "{\"m_Navigation\":{\"m_Mode\":3,\"m_WrapAround\":false,\"m_SelectOnUp\":{\"instanceID\":0},\"m_SelectOnDown\":{\"instanceID\":0},\"m_SelectOnLeft\":{\"instanceID\":0},\"m_SelectOnRight\":{\"instanceID\":0}},\"m_Transition\":1,\"m_Colors\":{\"m_NormalColor\":{\"r\":1.0,\"g\":1.0,\"b\":1.0,\"a\":1.0},\"m_HighlightedColor\":{\"r\":0.9607843160629273,\"g\":0.9607843160629273,\"b\":0.9607843160629273,\"a\":1.0},\"m_PressedColor\":{\"r\":0.7843137383460999,\"g\":0.7843137383460999,\"b\":0.7843137383460999,\"a\":1.0},\"m_SelectedColor\":{\"r\":0.9607843160629273,\"g\":0.9607843160629273,\"b\":0.9607843160629273,\"a\":1.0},\"m_DisabledColor\":{\"r\":0.7843137383460999,\"g\":0.7843137383460999,\"b\":0.7843137383460999,\"a\":0.501960813999176},\"m_ColorMultiplier\":1.0,\"m_FadeDuration\":0.10000000149011612},\"m_SpriteState\":{\"m_HighlightedSprite\":{\"instanceID\":0},\"m_PressedSprite\":{\"instanceID\":0},\"m_SelectedSprite\":{\"instanceID\":0},\"m_DisabledSprite\":{\"instanceID\":0}},\"m_AnimationTriggers\":{\"m_NormalTrigger\":\"Normal\",\"m_HighlightedTrigger\":\"Highlighted\",\"m_PressedTrigger\":\"Pressed\",\"m_SelectedTrigger\":\"Selected\",\"m_DisabledTrigger\":\"Disabled\"},\"m_Interactable\":true,\"m_TargetGraphic\":{\"instanceID\":-88508},\"m_OnClick\":{\"m_PersistentCalls\":{\"m_Calls\":[{\"m_Target\":{\"instanceID\":106942},\"m_TargetAssemblyTypeName\":\"\",\"m_MethodName\":\"PlayGame\",\"m_Mode\":2,\"m_Arguments\":{\"m_ObjectArgument\":{\"instanceID\":0},\"m_ObjectArgumentAssemblyTypeName\":\"\",\"m_IntArgument\":0,\"m_FloatArgument\":0.0,\"m_StringArgument\":\"\",\"m_BoolArgument\":false},\"m_CallState\":0}]}}}"
+        }
+    ],
+    "prefabPath": "Assets/Temp/GladeKitBackups/turn-turn-1780085518227-tc1a3w/MainMenuCanvas_MenuPanel_PlayButton.prefab"
+}

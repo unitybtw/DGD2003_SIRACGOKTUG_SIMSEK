@@ -1,0 +1,57 @@
+{
+    "name": "Freshman_Student",
+    "path": "Freshman_Student_Root/Freshman_Student",
+    "active": true,
+    "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "rotation": {
+        "x": 0.0,
+        "y": 180.0,
+        "z": 0.0
+    },
+    "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+    },
+    "localPosition": {
+        "x": -7.3000006675720219,
+        "y": 23.0,
+        "z": 4.59999942779541
+    },
+    "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+    },
+    "parentPath": "Freshman_Student_Root",
+    "layer": 0,
+    "tag": "Untagged",
+    "components": [
+        {
+            "type": "UnityEngine.Transform",
+            "propertiesJson": ""
+        },
+        {
+            "type": "UnityEngine.Animator",
+            "propertiesJson": ""
+        },
+        {
+            "type": "UnityEngine.AI.NavMeshAgent",
+            "propertiesJson": ""
+        },
+        {
+            "type": "FreshmanAI",
+            "propertiesJson": "{\"waypoints\":[],\"walkSpeed\":3.5,\"runSpeed\":7.5,\"investigateSpeed\":2.5,\"snapToNavMeshOnStart\":true,\"navMeshSnapRadius\":10.0,\"investigationWaitTime\":3.0,\"investigateStoppingDistance\":0.800000011920929,\"fleeDistance\":18.0,\"fleeCooldownTime\":0.25,\"speedParameterName\":\"Speed\",\"stateParameterName\":\"\",\"currentState\":0,\"currentWaypointIndex\":0}"
+        }
+    ],
+    "prefabPath": "Assets/Temp/GladeKitBackups/turn-turn-1780084532584-jrla5p/Freshman_Student_Root_Freshman_Student.prefab"
+}

@@ -1,0 +1,69 @@
+{
+    "name": "Freshman_NPC",
+    "path": "Freshman_NPC",
+    "active": true,
+    "position": {
+        "x": -35.5,
+        "y": -23.899999618530275,
+        "z": -7.400000095367432
+    },
+    "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+    },
+    "localPosition": {
+        "x": -35.5,
+        "y": -23.899999618530275,
+        "z": -7.400000095367432
+    },
+    "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+    },
+    "parentPath": "",
+    "layer": 0,
+    "tag": "Untagged",
+    "components": [
+        {
+            "type": "UnityEngine.Transform",
+            "propertiesJson": ""
+        },
+        {
+            "type": "UnityEngine.MeshFilter",
+            "propertiesJson": ""
+        },
+        {
+            "type": "UnityEngine.CapsuleCollider",
+            "propertiesJson": ""
+        },
+        {
+            "type": "UnityEngine.MeshRenderer",
+            "propertiesJson": ""
+        },
+        {
+            "type": "UnityEngine.AI.NavMeshAgent",
+            "propertiesJson": ""
+        },
+        {
+            "type": "UnityEngine.Animator",
+            "propertiesJson": ""
+        },
+        {
+            "type": "FreshmanAI",
+            "propertiesJson": "{\"waypoints\":[],\"walkSpeed\":3.5,\"runSpeed\":7.5,\"investigateSpeed\":2.5,\"investigationWaitTime\":3.0,\"investigateStoppingDistance\":0.800000011920929,\"fleeDistance\":18.0,\"fleeCooldownTime\":0.25,\"speedParameterName\":\"Speed\",\"stateParameterName\":\"\",\"currentState\":0,\"currentWaypointIndex\":0}"
+        }
+    ],
+    "prefabPath": "Assets/Temp/GladeKitBackups/turn-turn-1780081476312-xxfa0c/Freshman_NPC.prefab"
+}
